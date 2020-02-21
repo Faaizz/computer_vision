@@ -1,5 +1,5 @@
 ## Computer Vision Practice with Python
-This repository is one to help me keep track of my progress with learning computer vision and python
+This repository helps me keep track of my progress with learning computer vision and python
 
 ---------------------------------------------------------------------------------------------------
 ### K Nearest Neighbours
