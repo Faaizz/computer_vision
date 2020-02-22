@@ -15,16 +15,33 @@ def unpickle(file):
     return dict
 
 # Get training dataset
-dataset= unpickle('../cifar-10-batches-py/data_batch_1');
-key_list= list(dataset)
+dataset1= unpickle('../cifar-10-batches-py/data_batch_1');
+dataset2= unpickle('../cifar-10-batches-py/data_batch_2');
+dataset3= unpickle('../cifar-10-batches-py/data_batch_3');
+dataset4= unpickle('../cifar-10-batches-py/data_batch_4');
+dataset5= unpickle('../cifar-10-batches-py/data_batch_5');
+
+key_list= list(dataset1)
 data_key= key_list[2]
 labels_key= key_list[1]
+
+data= dataset1[data_key]
+data= np.append(data,dataset2[data_key],axis=0)
+data= np.append(data,dataset3[data_key],axis=0)
+data= np.append(data,dataset4[data_key],axis=0)
+data= np.append(data,dataset5[data_key],axis=0)
+
+labels= dataset1[labels_key]
+labels= np.append(labels,dataset2[labels_key],axis=0)
+labels= np.append(labels,dataset3[labels_key],axis=0)
+labels= np.append(labels,dataset4[labels_key],axis=0)
+labels= np.append(labels,dataset5[labels_key],axis=0)
 
 # Create model
 model= NearestNeighbour()
 
 # Train model
-model.train(np.array(dataset[data_key]), np.array(dataset[labels_key]))
+model.train(np.array(data), np.array(labels))
 
 # Import Test Image
 cat_img = np.uint8(imread('./img/cat.jpg'))
