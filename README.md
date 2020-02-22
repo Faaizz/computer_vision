@@ -26,11 +26,11 @@ dict= {'name': 'dictionary, 'function': 'nada!'}
 keys_list= list(dict)
 ```
 
-*__Get index of numpy array with smallest element__: The `argmin()` method of numpy returns the index of the smallest element.
+* __Get index of numpy array with smallest element__: The `argmin()` method of numpy returns the index of the smallest element.
 
-*__Get index of sorted numpy array__: The `argsort()` method returns an index of sorted array elements (does not actually sort the array).
+* __Get index of sorted numpy array__: The `argsort()` method returns an index of sorted array elements (does not actually sort the array).
 
-*__Get frequency of occurence of numpy array elements__: The `binsort()` method returns the frequency of occurence of array elements as a numpy array with the element as the index and it's frequency as the value for that index.
+* __Get frequency of occurence of numpy array elements__: The `binsort()` method returns the frequency of occurence of array elements as a numpy array with the element as the index and it's frequency as the value for that index.
 
 ```
 min_index= np.argmin(np_arr)
