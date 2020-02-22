@@ -27,11 +27,11 @@ class NearestNeighbour:
             # Sum up the col distances on each row
             l1_dis= np.sum(l1_dis, axis=1) 
             # L2
-            l2_dis= np.sqrt(np.sum(np.square(self.data-data[idx,:]), axis=1))   
+            # l2_dis= np.sqrt(np.sum(np.square(self.data-data[idx,:]), axis=1))   
             # Select distance to use
             dis= l1_dis
             # Find the data with lowest distance
-            top_match= np.argmin(dis)       
+            top_match= self.labels[np.argmin(dis)]       
             # Identify the first 'k' rows with the smallest distance
             # argsort returns the indices of the sorted array, doesn't actually perform sort
             winners= np.argsort(dis)[:k]
@@ -54,6 +54,8 @@ class NearestNeighbour:
             else:
                 # Select the single winner
                 result[idx]= win[0]
+                # print(top_match)
+                # print(result[idx])
             
             
 

@@ -15,6 +15,25 @@ def unpickle(file):
         dict = pickle.load(fo, encoding='bytes')
     return dict
 
+# Import Test Images
+local_img_1 = np.uint8(imread('./img/airplane.jpeg'))
+local_img_1= local_img_1.flatten(order='F')
+
+local_img_2 = np.uint8(imread('./img/automobile.jpg'))
+local_img_2= local_img_2.flatten(order='F')
+
+local_img_3 = np.uint8(imread('./img/bird.jpg'))
+local_img_3= local_img_3.flatten(order='F')
+
+local_img_4 = np.uint8(imread('./img/cat.jpeg'))
+local_img_4= local_img_4.flatten(order='F')
+
+local_img_5 = np.uint8(imread('./img/truck.jpg'))
+local_img_5= local_img_5.flatten(order='F')
+
+local_img_6 = np.uint8(imread('./img/ship.jpeg'))
+local_img_6= local_img_6.flatten(order='F')
+
 # Get training dataset
 dataset1= unpickle('../cifar-10-batches-py/data_batch_1');
 dataset2= unpickle('../cifar-10-batches-py/data_batch_2');
@@ -44,27 +63,8 @@ model= NearestNeighbour()
 # Train model
 model.train(np.array(data), np.array(labels))
 
-# Import Test Image
-local_img_1 = np.uint8(imread('./img/airplane.jpeg'))
-local_img_1= local_img_1.flatten()
-
-local_img_2 = np.uint8(imread('./img/automobile.png'))
-local_img_2= local_img_2.flatten()
-
-local_img_3 = np.uint8(imread('./img/bird.png'))
-local_img_3= local_img_3.flatten()
-
-local_img_4 = np.uint8(imread('./img/cat.jpeg'))
-local_img_4= local_img_4.flatten()
-
-local_img_5 = np.uint8(imread('./img/truck.jpg'))
-local_img_5= local_img_5.flatten()
-
-local_img_6 = np.uint8(imread('./img/horse.png'))
-local_img_6= local_img_6.flatten()
- 
 # Predict Test Images sourced from Google
-results= model.predict(np.array([local_img_1, local_img_2, local_img_3, local_img_4, local_img_5, local_img_6]), k=20)
+results= model.predict(np.array([local_img_1, local_img_2, local_img_3, local_img_4, local_img_5, local_img_6]), k=5)
 
 # Print Results
 
@@ -72,7 +72,7 @@ results= model.predict(np.array([local_img_1, local_img_2, local_img_3, local_im
 label_names_data= unpickle('../cifar-10-batches-py/batches.meta')
 label_key_list= list(label_names_data)
 label_names= label_names_data[label_key_list[1]]
-
+print(label_names)
 print('Test images from Google')
 print('airplane image is predicted as a: ' )
 print(label_names[results[0]])
@@ -101,7 +101,7 @@ test_img_1 = np.uint8(test_data[test_1_idx])
 test_img_2 = np.uint8(test_data[test_2_idx])
 
 # Predict Test Images sourced from Google
-results= model.predict(np.array([test_img_1, test_img_2]), k=20)
+results= model.predict(np.array([test_img_1, test_img_2]), k=5)
 
 print('\n')
 print('Test images from dataset')
