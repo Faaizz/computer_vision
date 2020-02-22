@@ -6,6 +6,7 @@
 import numpy as np
 from nearest_neighbour import NearestNeighbour
 from matplotlib.pyplot import imread
+import random
 
 def unpickle(file):
     """Unpickles a CIFAR-10 dataset file"""
@@ -44,13 +45,26 @@ model= NearestNeighbour()
 model.train(np.array(data), np.array(labels))
 
 # Import Test Image
-cat_img = np.uint8(imread('./img/cat.jpg'))
-cat_img= cat_img.flatten()
-airplane_img = np.uint8(imread('./img/airplane.jpg'))
-airplane_img= airplane_img.flatten()
+local_img_1 = np.uint8(imread('./img/airplane.jpeg'))
+local_img_1= local_img_1.flatten()
+
+local_img_2 = np.uint8(imread('./img/automobile.png'))
+local_img_2= local_img_2.flatten()
+
+local_img_3 = np.uint8(imread('./img/bird.png'))
+local_img_3= local_img_3.flatten()
+
+local_img_4 = np.uint8(imread('./img/cat.jpeg'))
+local_img_4= local_img_4.flatten()
+
+local_img_5 = np.uint8(imread('./img/truck.jpg'))
+local_img_5= local_img_5.flatten()
+
+local_img_6 = np.uint8(imread('./img/horse.png'))
+local_img_6= local_img_6.flatten()
  
 # Predict Test Images sourced from Google
-results= model.predict(np.array([cat_img, airplane_img]), k=50)
+results= model.predict(np.array([local_img_1, local_img_2, local_img_3, local_img_4, local_img_5, local_img_6]), k=20)
 
 # Print Results
 
@@ -60,36 +74,40 @@ label_key_list= list(label_names_data)
 label_names= label_names_data[label_key_list[1]]
 
 print('Test images from Google')
-
-print('cat image is predicted as a: ' )
-print(label_names[results[0]])
-print("\n")
 print('airplane image is predicted as a: ' )
+print(label_names[results[0]])
+print('automobile image is predicted as a: ' )
 print(label_names[results[1]])
+print('bird image is predicted as a: ' )
+print(label_names[results[2]])
+print('cat image is predicted as a: ' )
+print(label_names[results[3]])
+print('truck image is predicted as a: ' )
+print(label_names[results[4]])
+print('horse image is predicted as a: ' )
+print(label_names[results[5]])
 
 # Predict Test images from dataset
 test_dataset= unpickle('../cifar-10-batches-py/test_batch')
 test_key_list= list(test_dataset)
 test_labels= test_dataset[test_key_list[1]]
 test_data= test_dataset[test_key_list[2]]
-first_cat_index= test_labels.index(3)
-first_airplane_index= test_labels.index(0)
-first_cat= test_data[first_cat_index]
-first_airplane= test_data[first_airplane_index]
+# Select 2 random peices from test data
+test_1_idx= test_labels[random.randrange(0, test_data.shape[0]/2)]
+test_2_idx= test_labels[random.randrange(test_data.shape[0]/2, test_data.shape[0])]
 
 # Condition data for model
-cat_img = np.uint8(first_cat)
-airplane_img = np.uint8(first_airplane)
- 
+test_img_1 = np.uint8(test_data[test_1_idx])
+test_img_2 = np.uint8(test_data[test_2_idx])
+
 # Predict Test Images sourced from Google
-results= model.predict(np.array([cat_img, airplane_img]), k=50)
+results= model.predict(np.array([test_img_1, test_img_2]), k=20)
 
-print('\n\n\n')
+print('\n')
 print('Test images from dataset')
-
-print('cat image is predicted as a: ' )
+print(label_names[test_labels[test_1_idx]])
+print('is predicted as a: ' )
 print(label_names[results[0]])
-print("\n\n")
-print('airplane image is predicted as a: ' )
+print(label_names[test_labels[test_2_idx]])
+print('is predicted as a: ' )
 print(label_names[results[1]])
-print(label_names)
