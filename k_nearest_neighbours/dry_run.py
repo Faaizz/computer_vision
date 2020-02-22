@@ -6,10 +6,11 @@ from nearest_neighbour import NearestNeighbour
 import numpy as np
 
 # Demo Training Data
-data= np.array([np.zeros((4,)), np.ones((4,))])
+data= np.array([np.zeros((4,)), np.ones((4,)), np.zeros(4,), np.zeros(4,), np.ones(4,)])
 
 # Demo Training Labels
-labels= np.array(['zeros', 'ones'])
+labels_tag= np.array(['zeros', 'ones'])
+labels= np.array([0, 1, 0, 0, 1])
 
 # Create Model
 model= NearestNeighbour()
@@ -17,6 +18,6 @@ model= NearestNeighbour()
 model.train(data, labels)
 
 # Test Model
-result= model.predict(np.array([[0, 0, 0, 0], [1, 1, 1, 1]]))
+result= model.predict(np.array([[0, 0, 0, 0], [1, 1, 1, 1]]), k=2)
 # Print result
-print(result)
+print(labels_tag[result])

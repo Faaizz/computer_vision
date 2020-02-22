@@ -50,7 +50,7 @@ airplane_img = np.uint8(imread('./img/airplane.jpg'))
 airplane_img= airplane_img.flatten()
  
 # Predict Test Images sourced from Google
-results= model.predict(np.array([cat_img, airplane_img]))
+results= model.predict(np.array([cat_img, airplane_img]), k=50)
 
 # Print Results
 
@@ -82,7 +82,7 @@ cat_img = np.uint8(first_cat)
 airplane_img = np.uint8(first_airplane)
  
 # Predict Test Images sourced from Google
-results= model.predict(np.array([cat_img, airplane_img]))
+results= model.predict(np.array([cat_img, airplane_img]), k=50)
 
 print('\n\n\n')
 print('Test images from dataset')
@@ -92,3 +92,4 @@ print(label_names[results[0]])
 print("\n\n")
 print('airplane image is predicted as a: ' )
 print(label_names[results[1]])
+print(label_names)
