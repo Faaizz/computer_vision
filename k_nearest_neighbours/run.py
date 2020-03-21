@@ -130,5 +130,5 @@ print("Testing model...")
 # Predict Test Images from CIFAR-10 test set
 accuracy= model.test(test_data, test_labels, k=k, metric=metric)
 # Print result
-print("Accuracy is %.2f%%" %(accuracy))
+print("Accuracy is %.2f%%" %(accuracy*100))
 
