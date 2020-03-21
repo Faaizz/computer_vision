@@ -18,6 +18,6 @@ model= NearestNeighbour()
 model.train(data, labels)
 
 # Test Model
-result= model.predict(np.array([[0, 0, 0, 0], [1, 1, 1, 1]]), k=2)
+accuracy= model.test(np.array([[0, 0, 0, 0], [1, 1, 1, 1]]), np.array([0,1]), k=2, metric=2)
 # Print result
-print(labels_tag[result])
+print("Accuracy is: %.2f%%" % (accuracy*100))

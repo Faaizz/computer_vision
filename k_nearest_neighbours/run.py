@@ -7,6 +7,7 @@ import numpy as np
 from nearest_neighbour import NearestNeighbour
 from matplotlib.pyplot import imread
 import random
+from hyper_params import get_hyperparams
 
 def unpickle(file):
     """Unpickles a CIFAR-10 dataset file"""
@@ -57,14 +58,38 @@ labels= np.append(labels,dataset3[labels_key],axis=0)
 labels= np.append(labels,dataset4[labels_key],axis=0)
 labels= np.append(labels,dataset5[labels_key],axis=0)
 
+# split validation and training data
+# validation
+val_data= data[:1000, :]
+val_labels= labels[:1000]
+# training
+data= data[1000:, :]
+labels= labels[1000:]
+
+
 # Create model
 model= NearestNeighbour()
 
 # Train model
+print('Training model...')
 model.train(np.array(data), np.array(labels))
+print('Model trained.')
+
+# Find the best 'k'
+print('Finding best parameters...')
+k_range= np.array([1, 2, 3, 4, 5, 10, 50])
+best_params= get_hyperparams(k_range, val_data, val_labels, model)
+k= k_range[best_params[0]]
+metric= best_params[1]
+print('Best parameters found.')
+# Print best parameters
+print('best k is: ')
+print(k)
+print('\nbest metric is: ')
+print(metric)
 
 # Predict Test Images sourced from Google
-results= model.predict(np.array([local_img_1, local_img_2, local_img_3, local_img_4, local_img_5, local_img_6]), k=5)
+results= model.predict(np.array([local_img_1, local_img_2, local_img_3, local_img_4, local_img_5, local_img_6]), k=k, metric=metric)
 
 # Print Results
 
@@ -87,27 +112,23 @@ print(label_names[results[4]])
 print('horse image is predicted as a: ' )
 print(label_names[results[5]])
 
-# Predict Test images from dataset
+# Test model
 test_dataset= unpickle('../cifar-10-batches-py/test_batch')
 test_key_list= list(test_dataset)
 test_labels= test_dataset[test_key_list[1]]
 test_data= test_dataset[test_key_list[2]]
 # Select 2 random peices from test data
-test_1_idx= test_labels[random.randrange(0, test_data.shape[0]/2)]
-test_2_idx= test_labels[random.randrange(test_data.shape[0]/2, test_data.shape[0])]
+# test_1_idx= test_labels[random.randrange(0, test_data.shape[0]/2)]
+# test_2_idx= test_labels[random.randrange(test_data.shape[0]/2, test_data.shape[0])]
 
 # Condition data for model
-test_img_1 = np.uint8(test_data[test_1_idx])
-test_img_2 = np.uint8(test_data[test_2_idx])
+# test_img_1 = np.uint8(test_data[test_1_idx])
+# test_img_2 = np.uint8(test_data[test_2_idx])
 
-# Predict Test Images sourced from Google
-results= model.predict(np.array([test_img_1, test_img_2]), k=5)
 
-print('\n')
-print('Test images from dataset')
-print(label_names[test_labels[test_1_idx]])
-print('is predicted as a: ' )
-print(label_names[results[0]])
-print(label_names[test_labels[test_2_idx]])
-print('is predicted as a: ' )
-print(label_names[results[1]])
+print("Testing model...")
+# Predict Test Images from CIFAR-10 test set
+accuracy= model.test(test_data, test_labels, k=k, metric=metric)
+# Print result
+print("Accuracy is %.2f%%" %(accuracy))
+

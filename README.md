@@ -7,9 +7,15 @@ The K nearest neighbours algorithm keeps a copy of all the training data supplie
 
 #### Implementation
 An alogrithm was implemented using both l1 & l2 distances (can switch alternatively) and variable 'k'. 
-Training was carried out using CIFAR-10 dataset.
-Testing was performed with 6 random images from Google and 2 images from the test batch of CIFAR-10.
+Training was carried out using 49,000 images from the CIFAR-10 dataset, while hyperparameters were tuned with the remaining 1,000.
+Testing was performed with 6 random images from Google and the entire dataset from the test batch of CIFAR-10.
 
+##### Related scripts
+- nearest_neighbour.py
+- hyper_params.py
+- run.py
+
+   
 #### Python learnings
 * __Import class from local python file in the same folder__: To do this, a `__init__.py` file has to be created in the directory to enable imports from this directory. To import from sub-directories, each sub-directory must also have it's own `__init__.py` file.
 ```python
@@ -31,9 +37,15 @@ keys_list= list(dict)
 
 * __Get frequency of occurence of numpy array elements__: The `binsort()` method returns the frequency of occurence of array elements as a numpy array with the element as the index and it's frequency as the value for that index.
 
+*__Get maximum element from numpy array__: The `amax()` method returns the maximum element from a numpy array.
+
+
 ```
 min_index= np.argmin(np_arr)
 sorted_index= np.argsort(np_arr)
 most_frequent_3= np.binsort(np_arr)[:3]
 ```
+
+
+
 ---------------------------------------------------------------------------------------------------
