@@ -3,6 +3,7 @@
 # THIS SCRIPT PROVIDES FUNCTIONS THAT COMPUTES THE NUMERIC GRADIENT OF A FUNTION
 
 import numpy as np
+import sys
 
 def evaluate_gradient(L, W, *, h=.00001):
     """
@@ -17,6 +18,7 @@ def evaluate_gradient(L, W, *, h=.00001):
 
     # evaluate current function value
     L_W= L(W)
+    # sys.stderr.write(str(h))
 
     # create gradient matrix
     dW= np.zeros(W.shape)
@@ -41,13 +43,19 @@ def evaluate_gradient(L, W, *, h=.00001):
         # evaluate L(W-h)
         L_minus= L(W)
         # evaluate the central difference (L(W+h)-L(W-h))/2h
-        dW[idx]= (L_plus-L_minus)/(2*h)
+        # Check if function output is a vector
+        # if (type(L_plus).__module__== np.__name__) and len(L_plus.shape) > 0 and L_plus.shape[0] > 1:
 
+        diff= np.sum(L_plus-L_minus)
+
+        dW[idx]= (diff)/(2*h)
         # revert back to original W
         W[idx]= old
         # move to next element
         it.iternext()
 
+
+    # sys.stderr.write(str(dW))
     return dW
 
 
