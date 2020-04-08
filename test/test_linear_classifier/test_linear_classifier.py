@@ -26,7 +26,7 @@ class TestLinearClassifier(unittest.TestCase):
         fc_layer= FCLayer(self.W_b)
 
         # Loss per data sample
-        L_i= neg_nat_log.forward(softmax.forward(fc_layer.forward(data, W_b=self.W_b), labels))
+        L_i= neg_nat_log.forward(softmax.forward(fc_layer.forward(data), labels))
         # sys.stderr.write(str(L_i))
         # Total Loss
         L= np.sum(L_i)/L_i.shape[0]
@@ -45,7 +45,7 @@ class TestLinearClassifier(unittest.TestCase):
         for idx in range(1):
             # Analytic gradient
             # Forward pass
-            scores= fc_layer.forward(data, W_b=self.W_b)
+            scores= fc_layer.forward(data)
             smx= softmax.forward(scores, labels)
             # sys.stderr.write(str(scores.shape))
             L_i= neg_nat_log.forward(smx)
@@ -57,7 +57,7 @@ class TestLinearClassifier(unittest.TestCase):
 
             def func(W_b):
                 # Loss per data sample
-                L_i= neg_nat_log.forward(softmax.forward(fc_layer.forward(data, W_b=W_b), labels))
+                L_i= neg_nat_log.forward(softmax.forward(fc_layer.forward(data), labels))
                 # Total Loss
                 return np.sum(L_i)/L_i.shape[0]
 

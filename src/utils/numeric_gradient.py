@@ -18,7 +18,7 @@ def evaluate_gradient(L, W, *, h=.00001):
 
     # evaluate current function value
     L_W= L(W)
-    # sys.stderr.write(str(h))
+    # sys.stderr.write(str(L_W))
 
     # create gradient matrix
     dW= np.zeros(W.shape)
@@ -38,15 +38,18 @@ def evaluate_gradient(L, W, *, h=.00001):
         W[idx]= old + h
         # evaluate L(W+h)
         L_plus= L(W)
+        # sys.stderr.write(str(L_plus))
         # move in W-h
         W[idx]= old - h
         # evaluate L(W-h)
         L_minus= L(W)
+        # sys.stderr.write(str(old-h))
         # evaluate the central difference (L(W+h)-L(W-h))/2h
         # Check if function output is a vector
         # if (type(L_plus).__module__== np.__name__) and len(L_plus.shape) > 0 and L_plus.shape[0] > 1:
 
         diff= np.sum(L_plus-L_minus)
+        # diff= L_plus-L_minus
 
         dW[idx]= (diff)/(2*h)
         # revert back to original W
