@@ -92,7 +92,7 @@ target/
 *.aux
 *.bbl
 *.blg
-*.fbd_*
+*.fdb_*
 *.fls
 *.log
 *.synctex.gz
