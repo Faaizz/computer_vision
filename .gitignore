@@ -97,3 +97,6 @@ target/
 *.log
 *.synctex.gz
 
+
+# Personal files
+CV_conda_bin_dir.sh
